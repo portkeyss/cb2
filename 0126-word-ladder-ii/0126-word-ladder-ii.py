@@ -20,6 +20,7 @@ class Solution:
         q = deque([beginWord])
         while q:
             x = q.popleft()
+            if x==endWord: break
             for y in neis[x]:
                 if dist[y]==inf:
                     q.append(y)
