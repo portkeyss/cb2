@@ -3,18 +3,19 @@ class Solution:
         if endWord not in wordList: return []
         if beginWord not in wordList: wordList.append(beginWord)
  
-        def adj(a,b):
-            return sum(x==y for x,y in zip(a,b))==len(a)-1
+        A = defaultdict(list)
+        for w in wordList:
+            for i in range(len(w)):
+                A[w[:i]+"?"+w[i+1:]].append(w)
         
-        prev = defaultdict(list)
         neis = defaultdict(list)
-        n = len(wordList)
-        for i in range(n):
-            for j in range(i+1,n):
-                if adj(wordList[i],wordList[j]):
-                    neis[wordList[i]].append(wordList[j])
-                    neis[wordList[j]].append(wordList[i])
-                
+        for lst in A.values(): #all entries in lst are adjacent
+            for i in range(len(lst)):
+                for j in range(i):
+                    neis[lst[i]].append(lst[j])
+                    neis[lst[j]].append(lst[i])
+        
+        prev = defaultdict(list)      
         dist = defaultdict(lambda:inf)
         dist[beginWord] = 0
         q = deque([beginWord])
