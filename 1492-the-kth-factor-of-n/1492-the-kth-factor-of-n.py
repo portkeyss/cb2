@@ -1,10 +1,16 @@
 class Solution:
     def kthFactor(self, n: int, k: int) -> int:
-        divisors1 = []
-        divisors2 = []
-        for i in range(1, floor(sqrt(n))+1):
-            if n % i == 0:
-                divisors1.append(i)
-                divisors2.append(n//i)
-        divisors = divisors1+ (divisors2[-2::-1] if divisors1[-1] == divisors2[-1] else divisors2[::-1])
-        return divisors[k-1] if len(divisors) >= k else -1
+        p = floor(sqrt(n))
+        A = []
+        for i in range(1,p+1):
+            if n%i==0:
+                A.append(i)
+                if len(A)==k: return i
+        if p*p==n:
+            if 2*len(A)-1<k: return -1
+            else:
+                return n//A[-(k-len(A)+1)]
+        else:
+            if 2*len(A)<k: return -1
+            else:
+                return n//A[-(k-len(A))]
