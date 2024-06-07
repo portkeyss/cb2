@@ -1,7 +1,6 @@
 from sortedcontainers import SortedList
 class Solution:
     def kBigIndices(self, nums: List[int], k: int) -> int:
-        n = len(nums)
         A = SortedList()
         B = SortedList(nums)
         ans = 0
